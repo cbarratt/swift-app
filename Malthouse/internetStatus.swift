@@ -28,7 +28,7 @@ class internetStatus {
         let result : String
         
         if Reachability.isConnectedToNetwork() {
-            result = "No, you seem to be online for once!"
+            result = "No, you're online for once!"
         } else {
             result = "Yes, get yourself home!"
         }

@@ -10,17 +10,25 @@ class StatusMenuController: NSObject {
     let status = internetStatus()
     
     override func awakeFromNib() {
-        statusItem.title = "Is the Malthouse Fucked?"
+        statusItem.title = "Malthouse Fucked?"
         statusItem.menu = statusMenu
         statusMenuItem = statusMenu.itemWithTitle("Status")
         statusMenuItem.view = statusView
+        
+        NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: "refreshData:", userInfo: nil, repeats: true)
 
         updateStatus()
     }
     
+    func refreshData(timer: NSTimer){
+        updateStatus()
+    }
+    
     func updateStatus() {
+        NSLog("Updating internet status")
         status.fetch() { status in
             self.statusView.update(status)
+            self.statusItem.title = "Malthouse Fucked? \(status.state)"
         }
     }
     
